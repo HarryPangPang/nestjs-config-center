@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="socket.io.js"></script>
+
+  </head>
+
+  <body></body>
+  <script>
+    const socket = io('http://localhost:3000/config');
+    socket.on('connect', function() {
+      console.log('Connected');
+      socket.emit('msgToServer', { test: 'send messgae to server' });
+    });
+    socket.on('msgToClient', function(data) {
+      console.log('msgToClient', data);
+    });
+    socket.on('exception', function(data) {
+      console.log('event', data);
+    });
+    socket.on('disconnect', function() {
+      console.log('Disconnected');
+    });
+
+    function sendToServer(s){
+      socket.emit('msgToServer', s);
+    }
+  </script>
+</html>
